@@ -19,23 +19,30 @@ interface IData {
 }
 
 export function BaseForm() {
-  const { register, control, handleSubmit, formState, watch, getValues } =
-    useForm<IData>({
-      defaultValues: {
-        // or function
-        username: "Username",
-        email: "example@mail.com",
-        password: "password",
-        socials: {
-          twitter: "twitter",
-          facebook: "facebook",
-        },
-        phones: ["77777", "888"],
-        dynamicPhones: [{ number: "" }],
-        age: 0,
-        birth: new Date(),
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState,
+    watch,
+    getValues,
+    setValue,
+  } = useForm<IData>({
+    defaultValues: {
+      // or function
+      username: "Username",
+      email: "example@mail.com",
+      password: "password",
+      socials: {
+        twitter: "twitter",
+        facebook: "facebook",
       },
-    });
+      phones: ["77777", "888"],
+      dynamicPhones: [{ number: "" }],
+      age: 0,
+      birth: new Date(),
+    },
+  });
   const { errors } = formState;
 
   const { fields, append, remove } = useFieldArray({
@@ -55,6 +62,13 @@ export function BaseForm() {
 
   const onGetValues = () =>
     console.log(getValues(["username", "socials.twitter"]));
+
+  const onSetValue = () =>
+    setValue("username", "", {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
 
   return (
     <>
@@ -179,8 +193,13 @@ export function BaseForm() {
         {errors.birth?.message && <p>{errors.birth?.message}</p>}
 
         <button type="submit">Send</button>
+
         <button type="button" onClick={onGetValues}>
           Get values
+        </button>
+
+        <button type="button" onClick={onSetValue}>
+          Set value
         </button>
       </form>
       <DevTool control={control} />

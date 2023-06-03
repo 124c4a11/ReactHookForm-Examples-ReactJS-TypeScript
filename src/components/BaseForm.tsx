@@ -5,6 +5,10 @@ interface IData {
   username: string;
   email: string;
   password: string;
+  socials: {
+    twitter: string;
+    facebook: string;
+  };
 }
 
 export function BaseForm() {
@@ -14,6 +18,10 @@ export function BaseForm() {
       username: "Username",
       email: "example@mail.com",
       password: "password",
+      socials: {
+        twitter: "",
+        facebook: "",
+      },
     },
   });
   const { errors } = formState;
@@ -67,6 +75,26 @@ export function BaseForm() {
           })}
         />
         {errors.password?.message && <p>{errors.password?.message}</p>}
+
+        <label>Twitter:</label>
+        <input
+          {...register("socials.twitter", {
+            required: "Twitter is required!",
+          })}
+        />
+        {errors.socials?.twitter?.message && (
+          <p>{errors.socials?.twitter?.message}</p>
+        )}
+
+        <label>Facebook:</label>
+        <input
+          {...register("socials.facebook", {
+            required: "Facebook is required!",
+          })}
+        />
+        {errors.socials?.facebook?.message && (
+          <p>{errors.socials?.facebook?.message}</p>
+        )}
 
         <button type="submit">Send</button>
       </form>

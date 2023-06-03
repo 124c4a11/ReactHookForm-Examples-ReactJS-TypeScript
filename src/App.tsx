@@ -1,14 +1,7 @@
+import { BaseForm } from "./components/BaseForm";
+
 function App() {
-  return (
-    <form>
-      <input />
-
-      <input />
-      <p>This field is required</p>
-
-      <button type="submit">Send</button>
-    </form>
-  );
+  return <BaseForm />;
 }
 
 export default App;

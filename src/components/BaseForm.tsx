@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
 interface IData {
@@ -10,6 +10,9 @@ interface IData {
     facebook: string;
   };
   phones: string[];
+  dynamicPhones: {
+    number: string;
+  }[];
 }
 
 export function BaseForm() {
@@ -24,9 +27,15 @@ export function BaseForm() {
         facebook: "",
       },
       phones: ["", ""],
+      dynamicPhones: [{ number: "" }],
     },
   });
   const { errors } = formState;
+
+  const { fields, append, remove } = useFieldArray({
+    name: "dynamicPhones",
+    control,
+  });
 
   const onSubmit = (data: IData) => console.log(data);
 
@@ -113,6 +122,24 @@ export function BaseForm() {
           })}
         />
         {errors?.phones?.[1]?.message && <p>{errors.phones?.[1]?.message}</p>}
+
+        <label>List of phones:</label>
+        {fields.map((field, ndx) => (
+          <>
+            <input
+              key={field.id}
+              {...register(`dynamicPhones.${ndx}.number`)}
+            />
+            {ndx > 0 && (
+              <button type="button" onClick={() => remove(0)}>
+                Remove phone number
+              </button>
+            )}
+          </>
+        ))}
+        <button type="button" onClick={() => append({ number: "" })}>
+          Add phone number
+        </button>
 
         <button type="submit">Send</button>
       </form>

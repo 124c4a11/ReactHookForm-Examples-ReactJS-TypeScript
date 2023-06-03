@@ -8,7 +8,14 @@ interface IData {
 }
 
 export function BaseForm() {
-  const { register, control, handleSubmit, formState } = useForm<IData>();
+  const { register, control, handleSubmit, formState } = useForm<IData>({
+    defaultValues: {
+      // or function
+      username: "Username",
+      email: "example@mail.com",
+      password: "password",
+    },
+  });
   const { errors } = formState;
 
   const onSubmit = (data: IData) => console.log(data);

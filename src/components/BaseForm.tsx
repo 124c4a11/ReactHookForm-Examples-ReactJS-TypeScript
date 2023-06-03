@@ -43,7 +43,11 @@ export function BaseForm() {
       birth: new Date(),
     },
   });
-  const { errors } = formState;
+  const { errors, touchedFields, dirtyFields, isDirty } = formState;
+
+  console.log("touchedFields", touchedFields);
+  console.log("dirtyFields", dirtyFields);
+  console.log("isDirty", isDirty);
 
   const { fields, append, remove } = useFieldArray({
     name: "dynamicPhones",

@@ -9,6 +9,7 @@ interface IData {
     twitter: string;
     facebook: string;
   };
+  phones: string[];
 }
 
 export function BaseForm() {
@@ -22,6 +23,7 @@ export function BaseForm() {
         twitter: "",
         facebook: "",
       },
+      phones: ["", ""],
     },
   });
   const { errors } = formState;
@@ -95,6 +97,22 @@ export function BaseForm() {
         {errors.socials?.facebook?.message && (
           <p>{errors.socials?.facebook?.message}</p>
         )}
+
+        <label>Phone:</label>
+        <input
+          {...register("phones.0", {
+            required: "Phone is required!",
+          })}
+        />
+        {errors?.phones?.[0]?.message && <p>{errors.phones?.[0]?.message}</p>}
+
+        <label>Additional phone:</label>
+        <input
+          {...register("phones.1", {
+            required: "Additional phone is required!",
+          })}
+        />
+        {errors?.phones?.[1]?.message && <p>{errors.phones?.[1]?.message}</p>}
 
         <button type="submit">Send</button>
       </form>

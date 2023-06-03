@@ -1,6 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 interface IData {
   username: string;
@@ -19,7 +19,7 @@ interface IData {
 }
 
 export function BaseForm() {
-  const { register, control, handleSubmit, formState } = useForm<IData>({
+  const { register, control, handleSubmit, formState, watch } = useForm<IData>({
     defaultValues: {
       // or function
       username: "Username",
@@ -42,12 +42,20 @@ export function BaseForm() {
     control,
   });
 
+  const watchUsername = watch("username");
+
+  useEffect(() => {
+    const watcher = watch((value) => console.log(value));
+
+    return () => watcher.unsubscribe();
+  }, [watch]);
+
   const onSubmit = (data: IData) => console.log(data);
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <label>Username:</label>
+        <label>Username: {watchUsername}</label>
         <input
           {...register("username", {
             required: "Username is required!",

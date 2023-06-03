@@ -1,5 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { Fragment } from "react";
 
 interface IData {
   username: string;
@@ -13,6 +14,8 @@ interface IData {
   dynamicPhones: {
     number: string;
   }[];
+  age: number;
+  birth: Date;
 }
 
 export function BaseForm() {
@@ -23,11 +26,13 @@ export function BaseForm() {
       email: "example@mail.com",
       password: "password",
       socials: {
-        twitter: "",
-        facebook: "",
+        twitter: "twitter",
+        facebook: "facebook",
       },
-      phones: ["", ""],
+      phones: ["77777", "888"],
       dynamicPhones: [{ number: "" }],
+      age: 0,
+      birth: new Date(),
     },
   });
   const { errors } = formState;
@@ -125,7 +130,7 @@ export function BaseForm() {
 
         <label>List of phones:</label>
         {fields.map((field, ndx) => (
-          <>
+          <Fragment key={ndx}>
             <input
               key={field.id}
               {...register(`dynamicPhones.${ndx}.number`)}
@@ -135,11 +140,31 @@ export function BaseForm() {
                 Remove phone number
               </button>
             )}
-          </>
+          </Fragment>
         ))}
         <button type="button" onClick={() => append({ number: "" })}>
           Add phone number
         </button>
+
+        <label>Age:</label>
+        <input
+          type="number"
+          {...register("age", {
+            valueAsNumber: true,
+            required: "Age is required!",
+          })}
+        />
+        {errors.age?.message && <p>{errors.age?.message}</p>}
+
+        <label>Birth:</label>
+        <input
+          type="date"
+          {...register("birth", {
+            valueAsDate: true,
+            required: "Birth is required!",
+          })}
+        />
+        {errors.birth?.message && <p>{errors.birth?.message}</p>}
 
         <button type="submit">Send</button>
       </form>

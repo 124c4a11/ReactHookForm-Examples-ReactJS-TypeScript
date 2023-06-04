@@ -34,7 +34,7 @@ export function BaseForm() {
       email: "example@mail.com",
       password: "password",
       socials: {
-        twitter: "",
+        twitter: "twitter",
         facebook: "",
       },
       phones: ["77777", "888"],
@@ -43,7 +43,7 @@ export function BaseForm() {
       birth: new Date(),
     },
   });
-  const { errors, touchedFields, dirtyFields, isDirty } = formState;
+  const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
 
   console.log("touchedFields", touchedFields);
   console.log("dirtyFields", dirtyFields);
@@ -62,7 +62,7 @@ export function BaseForm() {
     return () => watcher.unsubscribe();
   }, [watch]);
 
-  const onSubmit = (data: IData) => console.log(data);
+  const onSubmit = (data: IData) => console.log("onSubmit", data);
 
   const onError = (errors: FieldErrors) => console.log("onErrors", errors);
 
@@ -199,7 +199,9 @@ export function BaseForm() {
         />
         {errors.birth?.message && <p>{errors.birth?.message}</p>}
 
-        <button type="submit">Send</button>
+        <button type="submit" disabled={!isValid}>
+          Send
+        </button>
 
         <button type="button" onClick={onGetValues}>
           Get values

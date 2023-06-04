@@ -83,7 +83,8 @@ input[type="submit"]:active {
   opacity: 0.8;
 }
 
-input:disabled {
+input:disabled,
+button[type="submit"]:disabled {
   opacity: 0.4;
 }
 

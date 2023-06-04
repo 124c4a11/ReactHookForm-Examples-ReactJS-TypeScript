@@ -1,4 +1,4 @@
-import { useFieldArray, useForm } from "react-hook-form";
+import { FieldErrors, useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { Fragment, useEffect } from "react";
 
@@ -64,6 +64,8 @@ export function BaseForm() {
 
   const onSubmit = (data: IData) => console.log(data);
 
+  const onError = (errors: FieldErrors) => console.log("onErrors", errors);
+
   const onGetValues = () =>
     console.log(getValues(["username", "socials.twitter"]));
 
@@ -76,7 +78,7 @@ export function BaseForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
         <label>Username: {watchUsername}</label>
         <input
           {...register("username", {

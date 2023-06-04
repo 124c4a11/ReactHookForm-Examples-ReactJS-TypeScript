@@ -43,6 +43,7 @@ export function BaseForm() {
       age: 0,
       birth: new Date(),
     },
+    mode: "onBlur",
   });
   const {
     errors,
@@ -232,7 +233,10 @@ export function BaseForm() {
         />
         {errors.birth?.message && <p>{errors.birth?.message}</p>}
 
-        <button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
+        <button
+          type="submit"
+          disabled={!isValid || isSubmitting || isSubmitSuccessful}
+        >
           Send
         </button>
 

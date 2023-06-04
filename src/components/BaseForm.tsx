@@ -34,8 +34,8 @@ export function BaseForm() {
       email: "example@mail.com",
       password: "password",
       socials: {
-        twitter: "twitter",
-        facebook: "facebook",
+        twitter: "",
+        facebook: "",
       },
       phones: ["77777", "888"],
       dynamicPhones: [{ number: "" }],
@@ -135,6 +135,7 @@ export function BaseForm() {
         <label>Facebook:</label>
         <input
           {...register("socials.facebook", {
+            disabled: watch("socials.twitter") !== "",
             required: "Facebook is required!",
           })}
         />

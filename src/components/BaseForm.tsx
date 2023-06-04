@@ -135,6 +135,15 @@ export function BaseForm() {
                   "This domail is not supported!"
                 );
               },
+
+              emailAvailable: async (fieldValue) => {
+                const res = await fetch(
+                  `https://jsonplaceholder.typicode.com/users?email=${fieldValue}`
+                );
+                const data = await res.json();
+
+                return data.length === 0 || "Email already exists!";
+              },
             },
           })}
         />
@@ -223,10 +232,7 @@ export function BaseForm() {
         />
         {errors.birth?.message && <p>{errors.birth?.message}</p>}
 
-        <button
-          type="submit"
-          disabled={!isValid || isSubmitting || isSubmitSuccessful}
-        >
+        <button type="submit" disabled={isSubmitting || isSubmitSuccessful}>
           Send
         </button>
 

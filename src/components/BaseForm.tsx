@@ -28,6 +28,7 @@ export function BaseForm() {
     getValues,
     setValue,
     reset,
+    trigger,
   } = useForm<IData>({
     defaultValues: {
       // or function
@@ -250,6 +251,14 @@ export function BaseForm() {
 
         <button type="button" onClick={onSetValue}>
           Set value
+        </button>
+
+        <button type="button" onClick={() => trigger()}>
+          Validate
+        </button>
+
+        <button type="button" onClick={() => trigger("email")}>
+          Validate Email
         </button>
       </form>
       <DevTool control={control} />

@@ -1,7 +1,7 @@
-import { YupForm } from "./components/YupForm";
+import { ZodForm } from "./components/ZodForm";
 
 function App() {
-  return <YupForm />;
+  return <ZodForm />;
 }
 
 export default App;

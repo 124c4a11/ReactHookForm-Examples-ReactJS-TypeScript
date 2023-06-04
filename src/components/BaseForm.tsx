@@ -27,6 +27,7 @@ export function BaseForm() {
     watch,
     getValues,
     setValue,
+    reset,
   } = useForm<IData>({
     defaultValues: {
       // or function
@@ -80,6 +81,10 @@ export function BaseForm() {
 
     return () => watcher.unsubscribe();
   }, [watch]);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) reset();
+  }, [isSubmitSuccessful, reset]);
 
   const onSubmit = (data: IData) => console.log("onSubmit", data);
 
@@ -223,6 +228,10 @@ export function BaseForm() {
           disabled={!isValid || isSubmitting || isSubmitSuccessful}
         >
           Send
+        </button>
+
+        <button type="button" onClick={() => reset()}>
+          Reset
         </button>
 
         <button type="button" onClick={onGetValues}>

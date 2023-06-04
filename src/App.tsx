@@ -1,7 +1,7 @@
-import { ZodForm } from "./components/ZodForm";
+import { MuiForm } from "./components/MuiForm";
 
 function App() {
-  return <ZodForm />;
+  return <MuiForm />;
 }
 
 export default App;

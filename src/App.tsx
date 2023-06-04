@@ -1,7 +1,7 @@
-import { BaseForm } from "./components/BaseForm";
+import { YupForm } from "./components/YupForm";
 
 function App() {
-  return <BaseForm />;
+  return <YupForm />;
 }
 
 export default App;
